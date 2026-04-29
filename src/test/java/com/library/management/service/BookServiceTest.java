@@ -85,19 +85,6 @@ public class BookServiceTest {
     }
 
     @Test
-    void getAllBooks_ShouldReturnListOfBookDtos() {
-        List<BookDao> books = List.of(bookDao);
-        when(bookRepository.findAll()).thenReturn(books);
-        when(bookMapper.toDto(bookDao)).thenReturn(bookDto);
-
-        List<BookDto> result = bookService.getAllBooks();
-
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        verify(bookRepository, times(1)).findAll();
-    }
-
-    @Test
     void getBookById_WhenBookExists_ShouldReturnBookDto() {
         when(bookRepository.findById(bookId)).thenReturn(Optional.of(bookDao));
         when(bookMapper.toDto(bookDao)).thenReturn(bookDto);

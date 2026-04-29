@@ -117,10 +117,19 @@
 
                             <div class="cover">
                                 <c:choose>
+                                    <c:when test="${not empty book.imageUrl}">
+                                        <img src="${book.imageUrl}"
+                                             alt="${book.title}"
+                                             style="width:100%; height:100%; object-fit:cover;">
+                                    </c:when>
+
                                     <c:when test="${not empty book.title}">
                                         ${book.title.substring(0,1)}
                                     </c:when>
-                                    <c:otherwise>B</c:otherwise>
+
+                                    <c:otherwise>
+                                        B
+                                    </c:otherwise>
                                 </c:choose>
                             </div>
 

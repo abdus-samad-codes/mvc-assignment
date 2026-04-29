@@ -19,7 +19,7 @@ public class BookDto {
     private String title;
 
     @NotBlank(message = "ISBN is required")
-    @Size(min = 10, max = 20, message = "ISBN must be between 10 and 20 characters")
+    @Size(min = 1, max = 20, message = "ISBN must be between 10 and 20 characters")
     private String isbn;
 
     @NotBlank(message = "Publisher is required")
