@@ -49,26 +49,32 @@ I followed a **Layered Architecture** to keep the code clean and easy to maintai
 *   **Maven** installed (or use the provided `./mvnw`).
 *   **MySQL Server** running on your machine.
 
-### Setup Instructions
+## Setup Instructions
 
-1.  **Database Configuration**:
-    *   Create a MySQL database named `library`.
-    *   Update `src/main/resources/application-dev.properties` with your MySQL username and password.
+### Running the Application (Recommended – No Setup Required)
+For the first run, I have configured the project to use the H2 in-memory database under the `test` profile. This allows the application to run without any external database setup.
 
-2.  **Build the Project**:
-    ```bash
-    ./mvnw clean install
-    ```
+In IntelliJ, create a Run Configuration and add the following VM option:
+`-Dspring.profiles.active=test`
 
-3.  **Run the Application**:
-    ```bash
-    ./mvnw spring-boot:run
-    ```
+Then run the application. The database will be created automatically, and sample data will be loaded.
 
-4.  **Access the Web Interface**:
-    Open your browser and navigate to: `http://localhost:8080/books/list`
+### Access the Web Interface
+Open your browser and navigate to:
+[http://localhost:8080/books/list](http://localhost:8080/books/list)
 
----
+### Running with MySQL (Optional)
+If you want to use MySQL instead of H2:
+
+* Create a MySQL database named `library`.
+* Update `src/main/resources/application-dev.properties` with your MySQL username and password.
+
+Then run the application using the `dev` profile:
+`-Dspring.profiles.active=dev`
+
+### Build the Project (Optional)
+```bash
+./mvnw clean install
 
 ## 📂 Project Structure
 
