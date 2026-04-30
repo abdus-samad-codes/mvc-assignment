@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-
 @Controller
 @RequestMapping("/authors")
 public class AuthorController {
@@ -25,7 +24,6 @@ public class AuthorController {
         this.bookService = bookService;
     }
 
-
     @GetMapping("/list")
     public String getAllAuthors(Model model) {
         model.addAttribute("authors", authorService.getAllAuthors());
@@ -37,7 +35,6 @@ public class AuthorController {
         model.addAttribute("author", new AuthorDto());
         return "authors/author-form";
     }
-
 
     @GetMapping("/view/{id}")
     public String viewAuthor(@PathVariable UUID id, Model model) {
@@ -72,11 +69,24 @@ public class AuthorController {
         return "authors/update-author";
     }
 
-
     @PostMapping("/update")
-    public String updateAuthor(@ModelAttribute AuthorDto authorDto) {
-        authorService.updateAuthor(authorDto.getId(), authorDto);
-        return "redirect:/authors/list";
+    public String updateAuthor(@Valid @ModelAttribute("author") AuthorDto authorDto,
+                               BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            return "authors/update-author";
+        }
+
+        try {
+            authorService.updateAuthor(authorDto.getId(), authorDto);
+            return "redirect:/authors/list";
+        } catch (DataIntegrityViolationException e) {
+            model.addAttribute("error", "Check fields again");
+            return "authors/update-author";
+        } catch (Exception e) {
+            model.addAttribute("error", "Failed to update author. Please check the details and try again.");
+            return "authors/update-author";
+        }
     }
 
     @GetMapping("/delete/{authorId}")

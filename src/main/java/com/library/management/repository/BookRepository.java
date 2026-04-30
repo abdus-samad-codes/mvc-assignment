@@ -30,7 +30,7 @@ public interface BookRepository extends JpaRepository<BookDao, UUID> {
 //            INNER JOIN book_author ba ON b.id = ba.book_id
 //            INNER JOIN authors a ON a.id = ba.author_id
 //            """, nativeQuery = true)
-    @Query("SELECT DISTINCT b from BookDao b LEFT JOIN FETCH b.authors")
+    @Query("SELECT DISTINCT b from BookDao b JOIN FETCH b.authors")
     List<BookDao> getAllBooksWithAuthor();
 
     @Query(value = """
